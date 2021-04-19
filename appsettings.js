@@ -6,7 +6,7 @@ module.exports = {
         port: 3306,
         user: "root",
         password: "root",
-        database: "banco_exemplo"
+        database: "agro"
     }
 };
 //# sourceMappingURL=appsettings.js.map
