@@ -46,7 +46,7 @@ class Usuario {
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert into usuario (nome) values (?)", [p.nome]);
+        await sql.query("insert into usuario (nome) values (?), (tipo) values (?), (email) values (?), (senha) values (?), (idRegiao) values (?)", [p.nome]);
       } catch (e) {
         if (e.code && e.code === "ER_DUP_ENTRY")
           erro = `O Usuario ${p.nome} já existe`;
@@ -63,8 +63,12 @@ class Usuario {
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("update usuario set nome = ? where id = ?", [
+        await sql.query("update usuario set nome = ?, set tipo = ?, set email = ?, set senha = ?, set idRegiao = ? where id = ?", [
           p.nome,
+          p.tipo,
+          p.email,
+          p.senha,
+          p.idRegiao,
           p.id,
         ]);
         if (!sql.affectedRows) erro = "Usuario não encontrado";
