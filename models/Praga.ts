@@ -20,7 +20,7 @@ class Praga {
     return lista || [];
   }
 
-  public static async obter(id: number): Promise<Praga> {
+  public async obter(id: number): Promise<Praga> {
     let lista: Praga[] = null;
     
     await app.sql.connect(async (sql:app.Sql) => {
@@ -32,13 +32,13 @@ class Praga {
     return (lista && lista[0]) || null;
   }
 
-  public static async criar(p: Praga): Promise<string> {
+  public async criar(p: Praga): Promise<string> {
     let erro: string;
     if((erro = Praga.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert int praga (nome) values (?), (tipo) values (?), (inicio) values (?), (fim) values (?)", [p.nome]);
+        await sql.query("insert int praga (nome, tipo, inicio, fim) values (?,?,?,?)", [p.nome]);
       } catch (e) {
         if (e.cod && e.code === "ER_DUP_ENTRY")
         erro = `A Praga ${p.nome} já existe`;
@@ -48,8 +48,11 @@ class Praga {
 
     return erro;
   }
+  static validar(p: Praga): string {
+    throw new Error("Method not implemented.");
+  }
 
-  public static async alterar(p: Praga): Promise<string> {
+  public async alterar(p: Praga): Promise<string> {
     let erro: string;
     if ((erro = Praga.validar(p))) return erro;
 

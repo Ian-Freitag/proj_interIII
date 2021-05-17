@@ -1,6 +1,7 @@
 import app = require("teem");
 
 class Cultura{
+  
   public id: number;
   public nome: string;
   public idPraga: number;
@@ -17,7 +18,7 @@ class Cultura{
     return lista || [];
   }
 
-  public static async obter(id: number): Promise<Cultura> {
+  public  async obter(id: number): Promise<Cultura> {
     let lista: Cultura[] = null;
     
     await app.sql.connect(async (sql:app.Sql) => {
@@ -29,13 +30,13 @@ class Cultura{
     return (lista && lista[0]) || null;
   }
 
-  public static async criar(p: Cultura): Promise<string> {
+  public async criar(p: Cultura): Promise<string> {
     let erro: string;
     if((erro = Cultura.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert int praga (nome) values (?), (idPraga) values (?)", [p.nome]);
+        await sql.query("insert int praga (nome,idPraga) values (?,?)", [p.nome]);
       } catch (e) {
         if (e.cod && e.code === "ER_DUP_ENTRY")
         erro = `A Cultura ${p.nome} já existe`;
@@ -45,8 +46,11 @@ class Cultura{
 
     return erro;
   }
+  static validar(p: Cultura): string {
+    throw new Error("Method not implemented.");
+  }
 
-  public static async alterar(p: Cultura): Promise<string> {
+  public async alterar(p: Cultura): Promise<string> {
     let erro: string;
     if ((erro = Cultura.validar(p))) return erro;
 

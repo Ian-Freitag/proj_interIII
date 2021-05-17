@@ -18,7 +18,7 @@ class Regiao {
     return lista || [];
   }
 
-  public static async obter(id: number): Promise<Regiao> {
+  public async obter(id: number): Promise<Regiao> {
     let lista: Regiao[] = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
@@ -30,13 +30,13 @@ class Regiao {
     return (lista && lista[0]) || null;
   }
 
-  public static async criar(p: Regiao): Promise<string> {
+  public async criar(p: Regiao): Promise<string> {
     let erro: string;
     if ((erro = Regiao.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert into regiao (regiaotipo) values (?), (idcultura) values (?)", [p.regiaotipo]);
+        await sql.query("insert into regiao (regiaotipo,idcultura) values (?,?)", [p.regiaotipo]);
       } catch (e) {
         if (e.code && e.code === "ER_DUP_ENTRY")
           erro = `A Região ${p.regiaotipo} já existe`;
@@ -47,7 +47,7 @@ class Regiao {
   }
   
   
-  public static async alterar(p: Regiao): Promise<string> {
+  public async alterar(p: Regiao): Promise<string> {
     let erro: string;
     if ((erro = Regiao.validar(p))) return erro;
 
@@ -66,8 +66,11 @@ class Regiao {
 
     return erro;
   }
+  static validar(p: Regiao): string {
+    throw new Error("Method not implemented.");
+  }
 
-  public async excluir(id: number): Promise<string> {
+  public static async excluir(id: number): Promise<string> {
     let erro: string = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
@@ -91,5 +94,5 @@ export = Regiao;
 
 
 
-}
+
 
