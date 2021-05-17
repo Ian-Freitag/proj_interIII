@@ -1,4 +1,3 @@
-import { sql } from "teem";
 import app = require("teem");
 
 class Regiao {
@@ -11,18 +10,18 @@ class Regiao {
 
     await app.sql.connect(async (sql: app.Sql) => {
       lista = (await sql.query(
-        "select id,regiaotipo, idcultura from Regiao order by nome asc"
+        "select id,regiaotipo, idcultura from regiao order by nome asc"
       )) as Regiao[];
     });
 
     return lista || [];
   }
 
-  public async obter(id: number): Promise<Regiao> {
+  public static async obter(id: number): Promise<Regiao> {
     let lista: Regiao[] = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
-      lista = (await sql.query("select id,regiaotipo, idcultura from usuario where id = ?", [
+      lista = (await sql.query("select id,regiaotipo, idcultura from regiao where id = ?", [
         id,
       ])) as Regiao[];
     });
@@ -30,13 +29,13 @@ class Regiao {
     return (lista && lista[0]) || null;
   }
 
-  public async criar(p: Regiao): Promise<string> {
+  public static async criar(p: Regiao): Promise<string> {
     let erro: string;
     if ((erro = Regiao.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert into regiao (regiaotipo,idcultura) values (?,?)", [p.regiaotipo]);
+        await sql.query("insert into regiao (regiaotipo,idcultura) values (?,?)", [p.regiaotipo,p.idcultura]);
       } catch (e) {
         if (e.code && e.code === "ER_DUP_ENTRY")
           erro = `A Região ${p.regiaotipo} já existe`;
@@ -47,7 +46,7 @@ class Regiao {
   }
   
   
-  public async alterar(p: Regiao): Promise<string> {
+  public static async alterar(p: Regiao): Promise<string> {
     let erro: string;
     if ((erro = Regiao.validar(p))) return erro;
 

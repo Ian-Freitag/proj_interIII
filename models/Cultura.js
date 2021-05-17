@@ -8,7 +8,7 @@ class Cultura {
         });
         return lista || [];
     }
-    async obter(id) {
+    static async obter(id) {
         let lista = null;
         await app.sql.connect(async (sql) => {
             lista = (await sql.query("select id, nome, idPraga from praga where id = ?", [
@@ -17,13 +17,13 @@ class Cultura {
         });
         return (lista && lista[0]) || null;
     }
-    async criar(p) {
+    static async criar(p) {
         let erro;
         if ((erro = Cultura.validar(p)))
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("insert int praga (nome,idPraga) values (?,?)", [p.nome]);
+                await sql.query("insert into praga (nome, idPraga) values (?,?)", [p.nome, p.idPraga]);
             }
             catch (e) {
                 if (e.cod && e.code === "ER_DUP_ENTRY")
@@ -35,9 +35,10 @@ class Cultura {
         return erro;
     }
     static validar(p) {
-        throw new Error("Method not implemented.");
+        // throw new Error("Method not implemented.");
+        return null;
     }
-    async alterar(p) {
+    static async alterar(p) {
         let erro;
         if ((erro = Cultura.validar(p)))
             return erro;

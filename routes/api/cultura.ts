@@ -15,14 +15,14 @@ class CulturaApiRoute {
 
       let id = parseInt(req.params["id"]);
 
-      let Cultura: Cultura = null;
+      let cultura: Cultura = null;
 
       if (isNaN(id)) {
           erro = "Id inválido";
       } else {
-          Cultura = await Cultura.obter(id);
+          cultura = await Cultura.obter(id);
 
-          if (!Cultura) {
+          if (!cultura) {
               erro = "Cultura não encontrado!";
           }
       }
@@ -30,18 +30,17 @@ class CulturaApiRoute {
       if (erro) {
           res.status(400).json(erro);
       } else {
-          res.json(Cultura);
+          res.json(cultura);
       }
   }
 
   @app.http.post()
-  @app.route.formData()
   public async criar(req: app.Request, res: app.Response) {
       let erro: string = null;
 
-      let Cultura = req.body as Cultura;
+      let cultura = req.body as Cultura;
 
-      erro = await Cultura.criar(Cultura);
+      erro = await Cultura.criar(cultura);
 
       if(erro){
           res.status(400).json(erro);
@@ -51,13 +50,12 @@ class CulturaApiRoute {
   }
 
   @app.http.post()
-  @app.route.formData()
   public async alterar(req: app.Request, res: app.Response) {
       let erro: string = null;
 
-      let Cultura = req.body as Cultura;
+      let cultura = req.body as Cultura;
 
-      erro = await Cultura.alterar(Cultura);
+      erro = await Cultura.alterar(cultura);
 
       if(erro){
           res.status(400).json(erro);

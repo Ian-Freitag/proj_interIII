@@ -1,4 +1,3 @@
-import { sql } from "teem";
 import app = require("teem");
 import converterDataISO = require("../utils/converterDataISO");
 
@@ -13,14 +12,14 @@ class Praga {
     let lista: Praga[] = null;
     await app.sql.connect(async (sql: app.Sql) => {
       lista = (await sql.query(
-        "select id, nome, inicio, fim from Praga order by nome asc"
+        "select id, nome, inicio, fim from praga order by nome asc"
       )) as Praga[];
     });
 
     return lista || [];
   }
 
-  public async obter(id: number): Promise<Praga> {
+  public static async obter(id: number): Promise<Praga> {
     let lista: Praga[] = null;
     
     await app.sql.connect(async (sql:app.Sql) => {
@@ -32,13 +31,13 @@ class Praga {
     return (lista && lista[0]) || null;
   }
 
-  public async criar(p: Praga): Promise<string> {
+  public static async criar(p: Praga): Promise<string> {
     let erro: string;
     if((erro = Praga.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert int praga (nome, tipo, inicio, fim) values (?,?,?,?)", [p.nome]);
+        await sql.query("insert int praga (nome, inicio, fim) values (?,?,?)", [p.nome,p.inicio,p.fim]);
       } catch (e) {
         if (e.cod && e.code === "ER_DUP_ENTRY")
         erro = `A Praga ${p.nome} já existe`;
@@ -77,7 +76,7 @@ class Praga {
     let erro: string = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
-      await sql.query("delete form praga where id = ?", [id]);
+      await sql.query("delete from praga where id = ?", [id]);
       if (!sql.affectedRows) erro = "Praga não encontrada";
     });
 

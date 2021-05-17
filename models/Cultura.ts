@@ -11,18 +11,18 @@ class Cultura{
     
     await app.sql.connect(async (sql: app.Sql) => {
       lista = (await sql.query( 
-        "select id, nome, idPraga from Praga order by nome asc"
+        "select id, nome, idPraga from cultura order by nome asc"
       )) as Cultura[];
     });
 
     return lista || [];
   }
 
-  public  async obter(id: number): Promise<Cultura> {
+  public static async obter(id: number): Promise<Cultura> {
     let lista: Cultura[] = null;
     
     await app.sql.connect(async (sql:app.Sql) => {
-      lista = (await sql.query("select id, nome, idPraga from praga where id = ?", [
+      lista = (await sql.query("select id, nome, idPraga from cultura where id = ?", [
         id,
       ])) as Cultura[];
     });
@@ -30,13 +30,13 @@ class Cultura{
     return (lista && lista[0]) || null;
   }
 
-  public async criar(p: Cultura): Promise<string> {
+  public static async criar(p: Cultura): Promise<string> {
     let erro: string;
     if((erro = Cultura.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert int praga (nome,idPraga) values (?,?)", [p.nome]);
+        await sql.query("insert into cultura (nome, idPraga) values (?,?)", [p.nome,p.idPraga]);
       } catch (e) {
         if (e.cod && e.code === "ER_DUP_ENTRY")
         erro = `A Cultura ${p.nome} já existe`;
@@ -47,10 +47,11 @@ class Cultura{
     return erro;
   }
   static validar(p: Cultura): string {
-    throw new Error("Method not implemented.");
+   // throw new Error("Method not implemented.");
+    return null;
   }
 
-  public async alterar(p: Cultura): Promise<string> {
+  public static async alterar(p: Cultura): Promise<string> {
     let erro: string;
     if ((erro = Cultura.validar(p))) return erro;
 
@@ -74,7 +75,7 @@ class Cultura{
     let erro: string = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
-      await sql.query("delete form cultura where id = ?", [id]);
+      await sql.query("delete fromm cultura where id = ?", [id]);
       if (!sql.affectedRows) erro = "Cultura não encontrada";
     });
 

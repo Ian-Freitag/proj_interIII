@@ -21,14 +21,14 @@ class Usuario {
 
     await app.sql.connect(async (sql: app.Sql) => {
       lista = (await sql.query(
-        "select id, nome, tipo, email, senha, idRegiao from Usuario order by nome asc"
+        "select id, nome, tipo, email, senha, idRegiao from usuario order by nome asc"
       )) as Usuario[];
     });
 
     return lista || [];
   }
 
-  public async obter(id: number): Promise<Usuario> {
+  public static async obter(id: number): Promise<Usuario> {
     let lista: Usuario[] = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
@@ -40,13 +40,13 @@ class Usuario {
     return (lista && lista[0]) || null;
   }
 
-  public async criar(p: Usuario): Promise<string> {
+  public static async criar(p: Usuario): Promise<string> {
     let erro: string;
     if ((erro = Usuario.validar(p))) return erro;
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert into usuario (nome,tipo,email,senha,idRegiao) values (?,?,?,?,?)", [p.nome]);
+        await sql.query("insert into usuario (nome,tipo,email,senha,idRegiao) values (?,?,?,?,?)", [p.nome,p.tipo,p.email,p.senha,p.idRegiao]);
       } catch (e) {
         if (e.code && e.code === "ER_DUP_ENTRY")
           erro = `O Usuario ${p.nome} já existe`;
@@ -57,7 +57,7 @@ class Usuario {
     return erro;
   }
 
-  public async alterar(p: Usuario): Promise<string> {
+  public static async alterar(p: Usuario): Promise<string> {
     let erro: string;
     if ((erro = Usuario.validar(p))) return erro;
 

@@ -15,13 +15,13 @@ class CulturaApiRoute {
     async obter(req, res) {
         let erro = null;
         let id = parseInt(req.params["id"]);
-        let Cultura = null;
+        let cultura = null;
         if (isNaN(id)) {
             erro = "Id inválido";
         }
         else {
-            Cultura = await Cultura.obter(id);
-            if (!Cultura) {
+            cultura = await Cultura.obter(id);
+            if (!cultura) {
                 erro = "Cultura não encontrado!";
             }
         }
@@ -29,13 +29,13 @@ class CulturaApiRoute {
             res.status(400).json(erro);
         }
         else {
-            res.json(Cultura);
+            res.json(cultura);
         }
     }
     async criar(req, res) {
         let erro = null;
-        let Cultura = req.body;
-        erro = await Cultura.criar(Cultura);
+        let cultura = req.body;
+        erro = await Cultura.criar(cultura);
         if (erro) {
             res.status(400).json(erro);
         }
@@ -45,8 +45,8 @@ class CulturaApiRoute {
     }
     async alterar(req, res) {
         let erro = null;
-        let Cultura = req.body;
-        erro = await Cultura.alterar(Cultura);
+        let cultura = req.body;
+        erro = await Cultura.alterar(cultura);
         if (erro) {
             res.status(400).json(erro);
         }
@@ -75,12 +75,10 @@ __decorate([
     app.route.methodName("/obter/:id")
 ], CulturaApiRoute.prototype, "obter", null);
 __decorate([
-    app.http.post(),
-    app.route.formData()
+    app.http.post()
 ], CulturaApiRoute.prototype, "criar", null);
 __decorate([
-    app.http.post(),
-    app.route.formData()
+    app.http.post()
 ], CulturaApiRoute.prototype, "alterar", null);
 __decorate([
     app.route.methodName("/excluir/:id")
