@@ -15,12 +15,12 @@ class PragaApiRoute {
     async obter(req, res) {
         let erro = null;
         let id = parseInt(req.params["id"]);
-        let Praga = null;
+        let praga = null;
         if (isNaN(id)) {
             erro = "Id inválido";
         }
         else {
-            Praga = await Praga.obter(id);
+            praga = await Praga.obter(id);
             if (!Praga) {
                 erro = "Praga não encontrado!";
             }
@@ -34,8 +34,8 @@ class PragaApiRoute {
     }
     async criar(req, res) {
         let erro = null;
-        let Praga = req.body;
-        erro = await Praga.criar(Praga);
+        let praga = req.body;
+        erro = await Praga.criar(praga);
         if (erro) {
             res.status(400).json(erro);
         }

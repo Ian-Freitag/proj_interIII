@@ -15,12 +15,12 @@ class RegiaoApiRoute {
 
       let id = parseInt(req.params["id"]);
 
-      let Regiao: Regiao = null;
+      let regiao: Regiao = null;
 
       if (isNaN(id)) {
           erro = "Id inválido";
       } else {
-          Regiao = await Regiao.obter(id);
+          regiao = await Regiao.obter(id);
 
           if (!Regiao) {
               erro = "Regiao não encontrado!";
@@ -39,9 +39,9 @@ class RegiaoApiRoute {
   public async criar(req: app.Request, res: app.Response) {
       let erro: string = null;
 
-      let Regiao = req.body as Regiao;
+      let regiao = req.body as Regiao;
 
-      erro = await Regiao.criar(Regiao);
+      erro = await Regiao.criar(regiao);
 
       if(erro){
           res.status(400).json(erro);
@@ -55,9 +55,9 @@ class RegiaoApiRoute {
   public async alterar(req: app.Request, res: app.Response) {
       let erro: string = null;
 
-      let Regiao = req.body as Regiao;
+      let regiao = req.body as Regiao;
 
-      erro = await Regiao.alterar(Regiao);
+      erro = await Regiao.alterar(regiao);
 
       if(erro){
           res.status(400).json(erro);

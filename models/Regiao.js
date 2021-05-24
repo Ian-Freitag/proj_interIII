@@ -4,26 +4,26 @@ class Regiao {
     static async listar() {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id,regiaotipo, idcultura from Regiao order by nome asc"));
+            lista = (await sql.query("select id,regiaotipo, idcultura from regiao order by nome asc"));
         });
         return lista || [];
     }
-    async obter(id) {
+    static async obter(id) {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id,regiaotipo, idcultura from usuario where id = ?", [
+            lista = (await sql.query("select id,regiaotipo, idcultura from regiao where id = ?", [
                 id,
             ]));
         });
         return (lista && lista[0]) || null;
     }
-    async criar(p) {
+    static async criar(p) {
         let erro;
         if ((erro = Regiao.validar(p)))
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("insert into regiao (regiaotipo,idcultura) values (?,?)", [p.regiaotipo]);
+                await sql.query("insert into regiao (regiaotipo,idcultura) values (?,?)", [p.regiaotipo, p.idcultura]);
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
@@ -34,7 +34,7 @@ class Regiao {
         });
         return erro;
     }
-    async alterar(p) {
+    static async alterar(p) {
         let erro;
         if ((erro = Regiao.validar(p)))
             return erro;

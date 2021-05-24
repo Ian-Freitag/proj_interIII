@@ -12,11 +12,11 @@ class Usuario {
     static async listar() {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id, nome, tipo, email, senha, idRegiao from Usuario order by nome asc"));
+            lista = (await sql.query("select id, nome, tipo, email, senha, idRegiao from usuario order by nome asc"));
         });
         return lista || [];
     }
-    async obter(id) {
+    static async obter(id) {
         let lista = null;
         await app.sql.connect(async (sql) => {
             lista = (await sql.query("select id, nome, tipo, email, senha, idRegiao from usuario where id = ?", [
@@ -25,13 +25,13 @@ class Usuario {
         });
         return (lista && lista[0]) || null;
     }
-    async criar(p) {
+    static async criar(p) {
         let erro;
         if ((erro = Usuario.validar(p)))
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("insert into usuario (nome,tipo,email,senha,idRegiao) values (?,?,?,?,?)", [p.nome]);
+                await sql.query("insert into usuario (nome,tipo,email,senha,idRegiao) values (?,?,?,?,?)", [p.nome, p.tipo, p.email, p.senha, p.idRegiao]);
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
@@ -42,7 +42,7 @@ class Usuario {
         });
         return erro;
     }
-    async alterar(p) {
+    static async alterar(p) {
         let erro;
         if ((erro = Usuario.validar(p)))
             return erro;

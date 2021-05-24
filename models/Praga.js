@@ -4,11 +4,11 @@ class Praga {
     static async listar() {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id, nome, inicio, fim from Praga order by nome asc"));
+            lista = (await sql.query("select id, nome, inicio, fim from praga order by nome asc"));
         });
         return lista || [];
     }
-    async obter(id) {
+    static async obter(id) {
         let lista = null;
         await app.sql.connect(async (sql) => {
             lista = (await sql.query("select id, nome, inicio, fim from praga where id = ?", [
@@ -17,13 +17,13 @@ class Praga {
         });
         return (lista && lista[0]) || null;
     }
-    async criar(p) {
+    static async criar(p) {
         let erro;
         if ((erro = Praga.validar(p)))
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("insert int praga (nome, tipo, inicio, fim) values (?,?,?,?)", [p.nome]);
+                await sql.query("insert int praga (nome, inicio, fim) values (?,?,?)", [p.nome, p.inicio, p.fim]);
             }
             catch (e) {
                 if (e.cod && e.code === "ER_DUP_ENTRY")
@@ -61,7 +61,7 @@ class Praga {
     static async excluir(id) {
         let erro = null;
         await app.sql.connect(async (sql) => {
-            await sql.query("delete form praga where id = ?", [id]);
+            await sql.query("delete from praga where id = ?", [id]);
             if (!sql.affectedRows)
                 erro = "Praga não encontrada";
         });

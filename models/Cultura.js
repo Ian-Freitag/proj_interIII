@@ -4,14 +4,14 @@ class Cultura {
     static async listar() {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id, nome, idPraga from Praga order by nome asc"));
+            lista = (await sql.query("select id, nome, idPraga from cultura order by nome asc"));
         });
         return lista || [];
     }
     static async obter(id) {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id, nome, idPraga from praga where id = ?", [
+            lista = (await sql.query("select id, nome, idPraga from cultura where id = ?", [
                 id,
             ]));
         });
@@ -23,7 +23,7 @@ class Cultura {
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("insert into praga (nome, idPraga) values (?,?)", [p.nome, p.idPraga]);
+                await sql.query("insert into cultura (nome, idPraga) values (?,?)", [p.nome, p.idPraga]);
             }
             catch (e) {
                 if (e.cod && e.code === "ER_DUP_ENTRY")
@@ -61,7 +61,7 @@ class Cultura {
     static async excluir(id) {
         let erro = null;
         await app.sql.connect(async (sql) => {
-            await sql.query("delete form cultura where id = ?", [id]);
+            await sql.query("delete fromm cultura where id = ?", [id]);
             if (!sql.affectedRows)
                 erro = "Cultura não encontrada";
         });
