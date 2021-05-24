@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,100&display=swap" rel="stylesheet">"  
+    <link rel="stylesheet" href="css/main.css" />
+
+    <title>Agromap Website</title>
+  </head>
+  <body>
+
+ <!--Header-->
+ <div id="header">
+    <div class="container">
+      <nav
+        class="navbar navbar-expand-lg navbar-light justify-content-between"
+      >
+        <a class="navbar-brand" href="#">
+          <img src="assets/logo.jpg" 
+          width="150" 
+          height="150" 
+          class="img-fluid"/>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Página Inicial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Entrar</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!--//Header-->
+
+  <!--Cadastro-->
+ <div id="slider" class="block">
+    <div class="container pt-5">
+       <div class="row">
+         <div class="col-lg-4 col-md-6 align-self-center mb-md-0 mb-4">
+           <h1>Cadastro</h1>
+           <h6 class="mb-4">Et Sumi kapa namur aondeai rocus pocus</h6>
+           <form>
+            <div class="mb-3">
+              <label for="txtNome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="txtNome">
+            </div>
+            <div class="mb-3">
+                <label for="txtSobrenome" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" id="txtSobrenome">
+            </div>
+            <div class="mb-3">
+                <label for="InputEmail" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="InputPassword" class="form-label">Senha</label>
+              <input type="password" class="form-control" id="InputPassword">
+            </div>          
+            <button type="submit" class="btn btn-primary button button-primary">Cadastrar</button>
+            <hr>
+          <p>Já tem uma conta? <a href="#"><strong>Faça o login</strong></a></p>
+          </form>
+        </div>
+         <div class="col-lg-8 col-md-6 align-self-center text-center">
+           <img src="assets/soja.jpg" class="img-fluid" />
+         </div>
+       </div>
+   </div>
+  </div>
+<!--Cadastro-->
+
+$("form").validate({
+    rules: {
+        // Para quase tudo existem duas, três ou mais formas de fazer a mesma coisa...! :)
+       
+    },
+
+    submitHandler: function (form) {
+        if ($.active) {
+            return;
+        }
+
+        Notification.wait();
+
+        $.ajax({
+            url: "<%- root %>/api/usuario/criar",
+            method: "POST",
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+
+            success: function (dadosDeRetorno) {
+                Notification.hide();
+                form.reset();
+                Swal.fire("Sucesso!", "Ingresso(s) criado(s) com sucesso! " + emoji.happy, "success");
+            },
+
+            error: function (xhr) {
+                Notification.hide();
+                try {
+                    // Tentar converter a resposta em um JSON
+                    Swal.fire("Erro!", JSON.parse(xhr.responseText), "error");
+                } catch (excecao) {
+                    // Se não foi possível converter a resposta em JSON,
+                    // apenas ignora e mostra a mensagem de erro padrão
+                    Swal.fire("Erro!", "Algo deu errado " + emoji.sad, "error");
+                }
+            }
+        });
+    }
+})
