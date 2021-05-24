@@ -15,12 +15,12 @@ class UsuarioApiRoute {
 
       let id = parseInt(req.params["id"]);
 
-      let Usuario: Usuario = null;
+      let usuario: Usuario = null;
 
       if (isNaN(id)) {
           erro = "Id inválido";
       } else {
-          Usuario = await Usuario.obter(id);
+          usuario = await Usuario.obter(id);
 
           if (!Usuario) {
               erro = "Usuario não encontrado!";
@@ -39,9 +39,9 @@ class UsuarioApiRoute {
   public async criar(req: app.Request, res: app.Response) {
       let erro: string = null;
 
-      let Usuario = req.body as Usuario;
+      let usuario = req.body as Usuario;
 
-      erro = await Usuario.criar(Usuario);
+      erro = await Usuario.criar(usuario);
 
       if(erro){
           res.status(400).json(erro);
@@ -55,9 +55,9 @@ class UsuarioApiRoute {
   public async alterar(req: app.Request, res: app.Response) {
       let erro: string = null;
 
-      let Usuario = req.body as Usuario;
+      let usuario = req.body as Usuario;
 
-      erro = await Usuario.alterar(Usuario);
+      erro = await Usuario.alterar(usuario);
 
       if(erro){
           res.status(400).json(erro);

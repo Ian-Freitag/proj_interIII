@@ -1,18 +1,268 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
-	<title>Título da Página</title>
-	
-	<style type="text/css">
-		
-	</style>
-</head>
-<body>
-	
-	<p>Página em branco!</p>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-</body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,100&display=swap" 
+      rel="stylesheet"
+      >"
+     
+    <link rel="stylesheet" href="css/main.css" />
+
+    <title>Agromap Website</title>
+  </head>
+
+  <body>
+ <!--Header-->
+ <div id="header">
+    <div class="container">
+      <nav
+        class="navbar navbar-expand-lg navbar-light justify-content-between"
+      >
+        <a class="navbar-brand" href="#">
+          <img src="assets/logo.jpg" 
+          width="150" 
+          height="150" 
+          class="img-fluid"/>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Página Inicial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Página Inicial</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Página Inicial</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <!--//Header-->
+
+ <!--Sobre?-->
+<div id="sobre" class="block">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-md-6 align-self-center text-center order-md-1 order-2"
+      >
+        <img src="assets/soja.jpg" class="img-fluid" />
+      </div>
+      <div
+        class="col-md-6 align-self-center order-md-2 order-1 mb-md-0 mb-4"
+      >
+        <h2 class="title">At vero eos et accusamus et iusto</h2>
+        <h4 class="subtitle">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur.
+        </p>
+        <a href="#" class="btn btn-primary button button-primary">
+            Entre em contato
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!--//?-->
+
+<!--Login-->
+<div id="slider" class="block">
+  <div class="container pt-5">
+     <div class="row">
+       <div class="col-lg-4 col-md-6 align-self-center mb-md-0 mb-4">
+         <h1>Login</h1>
+         <h6 class="mb-4">Et Sumi kapa namur aondeai rocus pocus</h6>
+         <form>
+          <div class="mb-3">
+            <label for="InputEmail" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="InputPassword" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="InputPassword">
+          </div>          
+          <div class="mb-3">
+            <a href="#">Esqueceu a senha?</a>
+          </div>
+          <button type="submit" class="btn btn-primary button button-primary">ENTRAR</button>
+          <hr>
+        <p>Não tem uma conta?  <a href="#"><strong>Cadastra-se</strong></a></p>
+        </form>
+      </div>
+       <div class="col-lg-8 col-md-6 align-self-center text-center">
+         <img src="assets/soja.jpg" class="img-fluid" />
+       </div>
+     </div>
+ </div>
+</div>
+<!--Login-->
+
+  <!--Culturas-->
+  <div id="servicos" class="block">
+    <div class="container">
+      <h2 class="title text-center">Culturas disponíveis</h2>
+      <h4 class="subtitle text-center mb-4">
+        Confira abaixo as princípais culturas disponíveis no mapa
+      </h4>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+          <a href="#" class="destaque">
+            <div class="img-container mb-3">
+              <img src="assets/milho.svg" class="img-fluid" />
+            </div>
+            <h5 class="text-uppercase">Et sumi kapo</h5>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+            <a href="#" class="destaque">
+                <div class="img-container mb-3">
+                  <img src="assets/milho.svg" class="img-fluid" />
+                </div>
+                <h5 class="text-uppercase">Et sumi kapo</h5>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+          <a href="#" class="destaque">
+            <div class="img-container mb-3">
+              <img src="assets/milho.svg" class="img-fluid" />
+            </div>
+            <h5 class="text-uppercase">Malarum Tor</h5>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+            <a href="#" class="destaque">
+                <div class="img-container mb-3">
+                  <img src="assets/milho.svg" class="img-fluid" />
+                </div>
+                <h5 class="text-uppercase">Et sumi kapo</h5>
+            </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+            <a href="#" class="destaque">
+                <div class="img-container mb-3">
+                  <img src="assets/milho.svg" class="img-fluid" />
+                </div>
+                <h5 class="text-uppercase">Et sumi kapo</h5>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+          <a href="#" class="destaque">
+            <div class="img-container mb-3">
+              <img src="assets/milho.svg" class="img-fluid" />
+            </div>
+            <h5 class="text-uppercase">Lorem Ipsun</h5>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+            <a href="#" class="destaque">
+                <div class="img-container mb-3">
+                  <img src="assets/milho.svg" class="img-fluid" />
+                </div>
+                <h5 class="text-uppercase">Et sumi kapo</h5>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+            <a href="#" class="destaque">
+             <div class="img-container mb-3">
+                <img src="assets/milho.svg" class="img-fluid" />
+              </div>
+              <h5 class="text-uppercase">Et sumi kapo</h5>
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--//Culturas-->
+
+  <!--Footer-->
+    <footer class="page-footer font-small pt-4 footer">
+        <div class="container text-center text-md-left">
+            <div class="row text-center text-md-left mt-3 pb-3">
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="font-weight-bold">AGROMAP</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+              </div>
+              <hr class="w-100 clearfix d-md-none">
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              </div>
+              <hr class="w-100 clearfix d-md-none">
+    
+              <hr class="w-100 clearfix d-md-none">
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="mb-4 font-weight-bold">CONTATO</h6>
+                <p>
+                  <i class="fa fa-home mr-3"></i> São Paulo, Brasil</p>
+                <p>
+                  <i class="fa fa-envelope mr-3"></i> agromap@exemplo.br</p>
+                <p>
+              </div>
+            </div>
+            <hr>
+            <div class="row d-flex align-items-center" >
+                <div class="col-md-7 col-lg-8">
+                    <p class="text-center text-md-left">
+                      <a href="#">
+                        <strong>www.agromap.br</strong>
+                      </a>
+                    </p>
+                </div>	
+                <div class="col-md-5 col-lg-4 ml-lg-0">
+                    <div class="text-center text-md-right">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                              <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                                <i class="fa fa-facebook-f"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item">
+                              <a class="btn-floating btn-sm">
+                                <i class="fa fa-linkedin"></i>
+                              </a>
+                            </li>
+                       </ul>
+                    </div>
+                </div>					
+            </div>
+        </div>
+    </footer>	
+<!--/Footer-->
+
+    <!--JS-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
 </html>
