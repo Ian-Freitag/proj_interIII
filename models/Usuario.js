@@ -12,14 +12,14 @@ class Usuario {
     static async listar() {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id, nome, tipo, email, senha, idRegiao from usuario order by nome asc"));
+            lista = (await sql.query("select id, nome, email, senha from usuario order by nome asc"));
         });
         return lista || [];
     }
     static async obter(id) {
         let lista = null;
         await app.sql.connect(async (sql) => {
-            lista = (await sql.query("select id, nome, tipo, email, senha, idRegiao from usuario where id = ?", [
+            lista = (await sql.query("select id, nome, email, senha from usuario where id = ?", [
                 id,
             ]));
         });
@@ -31,7 +31,7 @@ class Usuario {
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("insert into usuario (nome,tipo,email,senha,idRegiao) values (?,?,?,?,?)", [p.nome, p.tipo, p.email, p.senha, p.idRegiao]);
+                await sql.query("insert into usuario (nome,email,senha) values (?,?,?)", [p.nome, p.email, p.senha]);
             }
             catch (e) {
                 if (e.code && e.code === "ER_DUP_ENTRY")
@@ -48,12 +48,10 @@ class Usuario {
             return erro;
         await app.sql.connect(async (sql) => {
             try {
-                await sql.query("update usuario set nome = ?, set tipo = ?, set email = ?, set senha = ?, set idRegiao = ? where id = ?", [
+                await sql.query("update usuario set nome = ?, set email = ?, set senha = ? where id = ?", [
                     p.nome,
-                    p.tipo,
                     p.email,
                     p.senha,
-                    p.idRegiao,
                     p.id,
                 ]);
                 if (!sql.affectedRows)

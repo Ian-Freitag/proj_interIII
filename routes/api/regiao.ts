@@ -1,5 +1,5 @@
 import app = require("teem");
-import Regiao = require("../../models/Regiao");
+import Regiao = require("../../models/Mapa");
 
 class RegiaoApiRoute {
   public async listar(req: app.Request, res: app.Response) {

@@ -1,0 +1,80 @@
+<div id="mapa"></div>
+
+	<script type="text/javascript" src="/public/lib/jquery/js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="/public/lib/leaflet/js/leaflet-1.7.1.js"></script>
+
+	<script type="text/javascript">
+		var mapa = L.map("mapa", { zoomControl: false }),
+			popup = L.popup();
+
+		function onMarkerClick() {
+			// Aqui dentro, this é o objeto marker que foi clicado.
+			// Se quiser deixar vários popups abertos, é só ter um popup por marker,
+			// diferente daqui, onde a gente reaproveita o objeto popup o tempo todo.
+
+			var ponto = this.ponto;
+
+			popup.setLatLng([ponto.lat, ponto.lng]);
+			popup.setContent("<h1>" + ponto.nome + "</h1><p>" + ponto.descricao + "</p>");
+			popup.openOn(mapa);
+		}
+
+		function listarPontos() {
+			if ($.active)
+				return;
+
+			$.ajax({
+				url: "/api/mapa/listarPontos",
+				cache: false,
+				success: function (pontos) {
+					var highDpi = (("matchMedia" in window) && (highDpi = window.matchMedia("(min-resolution: 150dpi)")) && highDpi.matches),
+						icon = L.icon({
+							iconUrl: (highDpi ? "/public/images/marker@2x.png" : "/public/images/marker.png"),
+							iconSize: [25, 34],
+							iconAnchor: [12, 34],
+							popupAnchor: [0, 25]
+						});
+
+					for (var i = 0; i < pontos.length; i++) {
+						var marker = L.marker([pontos[i].lat, pontos[i].lng], { icon: icon });
+
+						marker.addTo(mapa);
+						marker.ponto = pontos[i];
+
+						marker.on("click", onMarkerClick);
+					}
+				},
+				error: function () {
+					alert("Algo saiu errado :(");
+				}
+			});
+		}
+
+		function iniciarMapa(lat, lng) {
+			var latlng = new L.LatLng(lat, lng);
+
+			L.control.zoom({
+				position: "topright"
+			}).addTo(mapa);
+
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+				subdomains: ['a', 'b', 'c'],
+				center: [latlng],
+				minZoom: 10
+			}).addTo(mapa);
+
+			mapa.on("click", function (e) {
+				popup.setLatLng([e.latlng.lat, e.latlng.lng]);
+				popup.setContent("<p>Você clicou em " + e.latlng.lat.toFixed(8) + ", " + e.latlng.lng.toFixed(8) + "</p>");
+				popup.openOn(mapa);
+			});
+
+			mapa.setView(latlng, 16);
+
+			listarPontos();
+		}
+
+		iniciarMapa( -23.55560812, -46.62039757);
+
+	</script>

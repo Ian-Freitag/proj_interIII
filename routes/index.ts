@@ -14,6 +14,12 @@ class IndexRoute {
       layout: "layout-home",
     });
   }
+  @app.route.methodName( app.root + "/mapa")
+  public async mapa(req: app.Request, res: app.Response) {
+    res.render("mapa.ejs", {
+      layout: "layout-mapa",
+    });
+  }
 
   @app.route.methodName( app.root + "/login")
 	public async dadosBanca(req: app.Request, res: app.Response) {

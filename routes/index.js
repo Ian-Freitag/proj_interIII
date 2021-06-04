@@ -17,6 +17,11 @@ class IndexRoute {
             layout: "layout-home",
         });
     }
+    async mapa(req, res) {
+        res.render("mapa.ejs", {
+            layout: "layout-mapa",
+        });
+    }
     async dadosBanca(req, res) {
         res.render("login.ejs", {
             layout: "layout-home",
@@ -27,6 +32,9 @@ class IndexRoute {
 __decorate([
     app.route.methodName(app.root + "/cadastrar")
 ], IndexRoute.prototype, "cadastrar", null);
+__decorate([
+    app.route.methodName(app.root + "/mapa")
+], IndexRoute.prototype, "mapa", null);
 __decorate([
     app.route.methodName(app.root + "/login")
 ], IndexRoute.prototype, "dadosBanca", null);

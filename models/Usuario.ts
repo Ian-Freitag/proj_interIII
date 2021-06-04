@@ -3,10 +3,8 @@ import app = require("teem");
 class Usuario {
   public id: number;
   public nome: string;
-  public tipo: number;
   public email: string;
   public senha: string;
-  public idRegiao: number;
 
   private static validar(p: Usuario): string {
     if (!p) return "Usuario inválido";
@@ -21,7 +19,7 @@ class Usuario {
 
     await app.sql.connect(async (sql: app.Sql) => {
       lista = (await sql.query(
-        "select id, nome, tipo, email, senha, idRegiao from usuario order by nome asc"
+        "select id, nome, email, senha from usuario order by nome asc"
       )) as Usuario[];
     });
 
@@ -32,7 +30,7 @@ class Usuario {
     let lista: Usuario[] = null;
 
     await app.sql.connect(async (sql: app.Sql) => {
-      lista = (await sql.query("select id, nome, tipo, email, senha, idRegiao from usuario where id = ?", [
+      lista = (await sql.query("select id, nome, email, senha from usuario where id = ?", [
         id,
       ])) as Usuario[];
     });
@@ -46,7 +44,7 @@ class Usuario {
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("insert into usuario (nome,tipo,email,senha,idRegiao) values (?,?,?,?,?)", [p.nome,p.tipo,p.email,p.senha,p.idRegiao]);
+        await sql.query("insert into usuario (nome,email,senha) values (?,?,?)", [p.nome,p.email,p.senha]);
       } catch (e) {
         if (e.code && e.code === "ER_DUP_ENTRY")
           erro = `O Usuario ${p.nome} já existe`;
@@ -63,12 +61,10 @@ class Usuario {
 
     await app.sql.connect(async (sql: app.Sql) => {
       try {
-        await sql.query("update usuario set nome = ?, set tipo = ?, set email = ?, set senha = ?, set idRegiao = ? where id = ?", [
+        await sql.query("update usuario set nome = ?, set email = ?, set senha = ? where id = ?", [
           p.nome,
-          p.tipo,
           p.email,
           p.senha,
-          p.idRegiao,
           p.id,
         ]);
         if (!sql.affectedRows) erro = "Usuario não encontrado";
