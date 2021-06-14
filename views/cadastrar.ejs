@@ -48,19 +48,16 @@
            <form>
             <div class="mb-3">
               <label for="txtNome" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="txtNome">
+              <input type="text" class="form-control" id="nome_usuario">
             </div>
-            <div class="mb-3">
-                <label for="txtSobrenome" class="form-label">Sobrenome</label>
-                <input type="text" class="form-control" id="txtSobrenome">
-            </div>
+           
             <div class="mb-3">
                 <label for="InputEmail" class="form-label">E-mail</label>
-                <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="email_usuario" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
               <label for="InputPassword" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="InputPassword">
+              <input type="password" class="form-control" id="senha">
             </div>          
             <button type="submit" class="btn btn-primary button button-primary">Cadastrar</button>
             <hr>
@@ -78,6 +75,15 @@
 $("form").validate({
     rules: {
         // Para quase tudo existem duas, três ou mais formas de fazer a mesma coisa...! :)
+        senha:{
+          required:true
+        },
+        nome_usuario:{
+          required:true
+        },
+        email_usuario:{
+          required:true
+        }
        
     },
 
@@ -98,7 +104,7 @@ $("form").validate({
             success: function (dadosDeRetorno) {
                 Notification.hide();
                 form.reset();
-                Swal.fire("Sucesso!", "Ingresso(s) criado(s) com sucesso! " + emoji.happy, "success");
+                Swal.fire("Sucesso!", "Usuario criado com sucesso! " + emoji.happy, "success");
             },
 
             error: function (xhr) {

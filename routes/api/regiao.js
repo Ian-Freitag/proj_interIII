@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 const app = require("teem");
-const Regiao = require("../../models/Regiao");
+const Regiao = require("../../models/Mapa");
 class RegiaoApiRoute {
     async listar(req, res) {
         let lista = await Regiao.listar();
