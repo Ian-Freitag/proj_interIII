@@ -1,5 +1,5 @@
 import app = require("teem");
-import Usuario = require("../../models/Usuario");
+import Usuario = require("../../models/usuario");
 
 class UsuarioApiRoute {
   public async listar(req: app.Request, res: app.Response) {

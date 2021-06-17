@@ -1,5 +1,5 @@
 import app = require("teem");
-import Praga = require("../../models/Praga");
+import Praga = require("../../models/praga");
 
 class PragaApiRoute {
   public async listar(req: app.Request, res: app.Response) {

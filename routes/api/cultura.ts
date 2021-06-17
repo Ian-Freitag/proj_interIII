@@ -1,5 +1,5 @@
 import app = require("teem");
-import Cultura = require("../../models/Cultura");
+import Cultura = require("../../models/cultura");
 
 class CulturaApiRoute {
   public async listar(req: app.Request, res: app.Response) {
