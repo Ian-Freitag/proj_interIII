@@ -111,11 +111,10 @@
 
 	function criarPontoModal() {
 		// pegar o nome e a cultura dos inputs...
-		let text = document.getElementById(nome);
-		let text2 = document.getElementById(cult);
+	
 		pedirCriarPonto({
-			nome: text,
-			cultura: text2,
+			nome: document.getElementById("nome").value,
+			cultura: document.getElementById("cult").value,
 			lat: latClicada,
 			lng: lngClicada
 		});
